@@ -1,0 +1,13 @@
+# Frontend (Vite / React)
+frontend/node_modules
+frontend/dist
+
+# Backend (Node)
+backend/node_modules
+
+# Environment variables
+.env
+.env.*
+
+# OS / editor files
+.DS_Store
