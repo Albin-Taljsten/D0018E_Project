@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import ProductInfo from "./ProductInfo";
 
-interface Product{
+export interface Product{
     id: number;
     name: string;
     description: string;
@@ -10,6 +11,7 @@ interface Product{
 }
 function GetProducts(){
     const [data, setData] = useState<Product[]>([]);
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
 
     useEffect(() => {
         axios.get("http://localhost:5000/products")
@@ -19,18 +21,15 @@ function GetProducts(){
         .catch((err) => console.log(err))
     }, []);
     return(
-        <div className="container border">
+        <div className="containter d-flex flex-wrap justify-content-start gap-3 border border-dark border-2 pt-1 pb-1 my-5 mx-auto rounded">
             {data.map((product) => {
                 return (
-                    <div key={product.id} className="container-fluid p-5 my-5 border  ">
-                        <p><strong>ID:</strong> {product.id}</p>
+                    <button key={product.id} onClick={() => setSelectedProduct(product)} type="button" className="btn btn-light border border-dark border-2 pt-5 pb-5 my-5 mx-auto  rounded  shadow-sm hower-shadow-lg" style={{width: '200px', height: '300px'}}>
                         <p><strong>Name:</strong> {product.name}</p>
-                        <p><strong>Description:</strong> {product.description}</p>
-                        <p><strong>In stock:</strong> {product.stock}</p>
-                        <p><strong>Type:</strong> {product.type}</p>
-                    </div>
+                    </button>
                 )
             })}
+            {selectedProduct && <ProductInfo product={selectedProduct} />}
         </div>
     
     )
