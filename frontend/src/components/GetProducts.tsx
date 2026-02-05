@@ -14,7 +14,7 @@ function GetProducts(){
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
 
     useEffect(() => {
-        axios.get("http://localhost:5000/products")
+        axios.get("http://56.228.24.245:5000/products")
         .then((res) => {
             setData(res.data)
         })

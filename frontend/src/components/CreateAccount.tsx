@@ -15,14 +15,14 @@ function CreateAccount({ toggleModal }: CreateAccountProps){
 
     const navigate =useNavigate()
 
-    const handleChange = (e) => {
+    const handleChange = (e: { target: { name: any; value: any; }; }) => {
         setFormData((prev) => ({...prev, [e.target.name]: e.target.value}));
     };
 
-    const handleClick = async e => {
+    const handleClick = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         try{
-            await axios.post("http://localhost:5000/customers", formData);
+            await axios.post("http://56.228.24.245:5000/customers", formData);
             //Login
             navigate("/")
         }catch(err){
