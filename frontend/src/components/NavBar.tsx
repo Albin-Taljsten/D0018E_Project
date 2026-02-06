@@ -23,9 +23,6 @@ function NavBar(){
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/Favorite">Favorites</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/About">About</Link>
                             </li>    
                         </ul>
 

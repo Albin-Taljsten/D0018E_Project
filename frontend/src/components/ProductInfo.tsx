@@ -1,20 +1,31 @@
+import { useParams } from "react-router-dom"
 import type { Product } from "./GetProducts"
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-interface ProductInfoProps {
-    product: Product;
-}
+function ProductInfo() {
+    const { productName } = useParams();
+    const [product, setProduct] = useState<Product | null>(null);
 
-function ProductInfo({ product }: ProductInfoProps){
-    return(
-        <div>
-            <h1>Info</h1>
-            <p><strong>ID:</strong> {product.id}</p>
-            <p><strong>Name:</strong> {product.name}</p>
+    useEffect(() => {
+        if (productName) {
+            axios
+                .get(`http://localhost:5000/products/${productName}`)
+                .then((res) => setProduct(res.data))
+                .catch((err) => console.log(err));
+        }
+    }, [productName]);
+
+    if (!product) return <p>Loading...</p>
+
+    return (
+        <div className="container mt-5">
+            <h1>{product.name}</h1>
             <p><strong>Description:</strong> {product.description}</p>
-            <p><strong>In stock:</strong> {product.stock}</p>
+            <p><strong>Stock:</strong> {product.stock}</p>
             <p><strong>Type:</strong> {product.type}</p>
         </div>
     )
 }
 
-export default ProductInfo
+export default ProductInfo;
