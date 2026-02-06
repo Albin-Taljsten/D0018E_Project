@@ -8,9 +8,9 @@ type CreateAccountProps = {
 
 function CreateAccount({ toggleModal }: CreateAccountProps){
     const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        password: "",
+        Name: "",
+        Email: "",
+        Password: "",
     });
 
     const navigate =useNavigate()
@@ -22,8 +22,7 @@ function CreateAccount({ toggleModal }: CreateAccountProps){
     const handleClick = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         try{
-            await axios.post("http://56.228.24.245:5000/customers", formData);
-            //Login
+            await axios.post("http://localhost:5000/users", formData);
             navigate("/")
         }catch(err){
             console.log(err);
@@ -38,15 +37,15 @@ function CreateAccount({ toggleModal }: CreateAccountProps){
             <form className="mx-auto" style={{width: '300px'}}>
                 <div className="mb-3">
                     <label className="form-label">Name:</label>
-                    <input type="text" className="form-control" id="name" placeholder="Enter Name" onChange={handleChange} name="name"/>
+                    <input type="text" className="form-control" id="name" placeholder="Enter Name" onChange={handleChange} name="Name"/>
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Email:</label>
-                    <input type="email" className="form-control" id="email" placeholder="Enter Email" onChange={handleChange}  name="email"/>
+                    <input type="email" className="form-control" id="email" placeholder="Enter Email" onChange={handleChange}  name="Email"/>
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Password:</label>
-                    <input type="password" className="form-control" id="password" placeholder="Enter Password" onChange={handleChange}  name="password"/>
+                    <input type="password" className="form-control" id="password" placeholder="Enter Password" onChange={handleChange}  name="Password"/>
                 </div>
                 <div className="d-flex justify-content-center gap-3 mt-4">
                     <button onClick={toggleModal} type="button" className="btn btn-dark">Login</button>
