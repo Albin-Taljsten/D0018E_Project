@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 const bcrypt = require('bcrypt');
+const { generateToken } = require('../services/authenticationService');
 
 
 router.post('/', (req, res) => {
@@ -9,7 +10,7 @@ router.post('/', (req, res) => {
     if(!Email || !Password) {
         return res.status(400).json({message: "Email and password are required"});
     }
-    const check_sql = 'SELECT email, password FROM users WHERE email = ?'
+    const check_sql = 'SELECT email, password, ID, role FROM users WHERE email = ?'
     db.query(check_sql, [Email], async (err, result) => {
         if(err){
             console.error(err);
@@ -19,8 +20,14 @@ router.post('/', (req, res) => {
             return res.status(404).json({message: 'Email does not exist'})
         }       
         const hashedPassword = result[0].password;
+        const token = generateToken({id: result[0].ID, email: Email });
+        
         if(await bcrypt.compare(Password, hashedPassword)){
-            return res.status(200).json({message: "Login successful"});
+            if(result[0].role === 'admin'){
+                return res.status(200).json({message: "Admin login successful", token, role: 'admin'});
+            }else{
+                return res.status(200).json({message: "User login successful", token, role: 'user'});
+            }
         }else{
             return res.status(401).json({message: "Invalid password"});
         }       
