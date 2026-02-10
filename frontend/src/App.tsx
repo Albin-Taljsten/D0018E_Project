@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import { Footer, ProductInfo, ScrollToTop } from './components/misc'
 import { HamburgerMenu, NavBar } from './components'
 import { FavoritePage, HomePage, LoginPage } from './pages'
+import BasketPage from './pages/basketPage'
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                     <Route path="/LoginPage" element={<LoginPage />} />
                     <Route path="/FavoritePage" element={<FavoritePage />} />
                     <Route path='/products/:productName' element={<ProductInfo />} />
+                    <Route path='/basket' element={<BasketPage />} />
                 </Routes>
             </main>
             <Footer />

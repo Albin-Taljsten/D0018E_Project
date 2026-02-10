@@ -1,16 +1,10 @@
-import { useState } from "react";
-import Login from "../components/Login";
-import CreateAccount from "../components/CreateAccount";
+import Login from "../components/Login"
 
 function LoginPage(){
-    const [ modal, setModal] = useState(true);
-
-    function toggleModal(){
-        setModal(prev => !prev)
-    }
+    
     return(
         <div>
-            {modal == true ? (<Login toggleModal={toggleModal}/>) : (<CreateAccount toggleModal={toggleModal}/>)}
+            <Login />
         </div>
     )
 }

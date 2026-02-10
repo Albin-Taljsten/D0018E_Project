@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export interface Product{
-    id: number;
+    product_id: number;
     name: string;
     description: string;
     stock: number;
@@ -20,12 +20,20 @@ function GetProducts(){
         .then((res) => setData(res.data))
         .catch((err) => console.log(err))
     }, []);
+    // const token = localStorage.getItem("token");
+
+    // axios.get("http://localhost:5000/products", {
+    //     headers: {
+    //         Authorization: `Bearer ${token}`,
+    //     },
+    // }).then((res) => setData(res.data))
+    // .catch((err) => console.log(err));
 
     return (
         <div className="container d-flex flex-wrap justify-content-start gap-3 border border-dark border-2 pt-1 pb-1 my-5 mx-auto rounded">
             {data.map((product) => (
                 <button
-                    key={product.id}
+                    key={product.product_id}
                     onClick={() => navigate(`/products/${product.name}`)}
                     type="button"
                     className="btn btn-light border border-dark border-2 pt-5 pb-5 my-5 mx-auto rounded shadow-sm hover-shadow-lg"
