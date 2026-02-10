@@ -6,8 +6,9 @@ export interface Product{
     id: number;
     name: string;
     description: string;
-    stock: string;
+    stock: number;
     type: string;
+    price: number;
 }
 function GetProducts(){
     const [data, setData] = useState<Product[]>([]);

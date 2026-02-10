@@ -1,4 +1,4 @@
-import GetProducts from "../components/GetProducts"
+import GetProducts from "../components/misc/GetProducts"
 
 function HomePage(){
     return(

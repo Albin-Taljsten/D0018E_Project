@@ -1,6 +1,7 @@
-import Login from "../components/Login"
-import CreateAccount from "../components/CreateAccount"
 import { useState } from "react";
+import Login from "../components/Login";
+import CreateAccount from "../components/CreateAccount";
+
 function LoginPage(){
     const [ modal, setModal] = useState(true);
 
