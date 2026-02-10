@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import { Footer, ProductInfo, ScrollToTop } from './components/misc'
-import { HamburgerMenu, NavBar } from './components'
+import { Footer, HamburgerMenu, NavBar, ProductInfo, ScrollToTop } from './components'
 import { FavoritePage, HomePage, LoginPage } from './pages'
 import BasketPage from './pages/basketPage'
 
