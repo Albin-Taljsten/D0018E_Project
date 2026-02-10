@@ -6,6 +6,7 @@ import FavoritePage from './pages/FavoritePage'
 import Footer from './components/Footer'
 import ProductInfo from './components/ProductInfo'
 import ScrollToTop from './components/ScollToTop'
+import BasketPage from './pages/basketPage'
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                     <Route path="/Login" element={<LoginPage />} />
                     <Route path="/Favorite" element={<FavoritePage />} />
                     <Route path='/products/:productName' element={<ProductInfo />} />
+                    <Route path='/basket' element={<BasketPage />} />
                 </Routes>
             </main>
             <Footer />

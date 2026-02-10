@@ -1,6 +1,13 @@
 import { Link } from 'react-router-dom'
+import { useState } from 'react';
 
 function NavBar(){
+    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        setIsLoggedIn(false);
+    }
     return(
         <div>
             <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top" style={{height: '10vh'}}>
@@ -19,11 +26,14 @@ function NavBar(){
                     
                         <ul className="navbar-nav ms-auto">
                             <li className="nav-item">
-                                <Link className="nav-link" to="/Login">Login</Link>
+                                <Link className="nav-link" to="/Login" onClick={handleLogout}>{isLoggedIn ? "Logout" : "Login"}</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/Favorite">Favorites</Link>
-                            </li>    
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/basket">Basket</Link>
+                            </li>
                         </ul>
 
                     </div>
