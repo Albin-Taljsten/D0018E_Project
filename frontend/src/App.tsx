@@ -16,7 +16,7 @@ function App() {
                     <Route path="/LoginPage" element={<LoginPage />} />
                     <Route path="/FavoritePage" element={<FavoritePage />} />
                     <Route path='/products/:productName' element={<ProductInfo />} />
-                    <Route path='/basket' element={<BasketPage />} />
+                    <Route path='/basketPage' element={<BasketPage />} />
                 </Routes>
             </main>
             <Footer />
