@@ -1,8 +1,14 @@
 import { Link } from 'react-router-dom'
 import { BasketIcon, FavoriteIcon, LoginIcon } from '../icons'
 import { HamburgerButton, SearchBar } from '.'
+import { useState } from 'react'
 
 function NavBar(){
+    const [ active, setActive] = useState(!!localStorage.getItem("token"));
+    const handleLogout = () => {
+        localStorage.removeItem("token")
+        setActive(false)
+    }
     return(
         <div>
             <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top" style={{height: '10vh'}}>
