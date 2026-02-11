@@ -10,7 +10,7 @@ router.post('/', (req, res) => {
     if(!Email || !Password) {
         return res.status(400).json({message: "Email and password are required"});
     }
-    const check_sql = 'SELECT email, password, ID, role FROM users WHERE email = ?'
+    const check_sql = 'SELECT email, password, user_id, role FROM users WHERE email = ?'
     db.query(check_sql, [Email], async (err, result) => {
         if(err){
             console.error(err);
@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
             return res.status(404).json({message: 'Email does not exist'})
         }       
         const hashedPassword = result[0].password;
-        const token = generateToken({id: result[0].ID, email: Email });
+        const token = generateToken({id: result[0].user_id, email: Email });
         
         if(await bcrypt.compare(Password, hashedPassword)){
             if(result[0].role === 'admin'){
