@@ -1,9 +1,14 @@
 import { useParams } from "react-router-dom"
-import type { Product } from "./GetProducts"
-import { useEffect, useState } from "react";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import axios from "axios";
+import type { Product } from "../types";
 
-function ProductInfo() {
+interface Props {
+    favorites: Product[];
+    setFavorites: Dispatch<SetStateAction<Product[]>>
+}
+
+function ProductInfo({ favorites, setFavorites }: Props) {
     const { productName } = useParams();
     const [product, setProduct] = useState<Product | null>(null);
 
@@ -17,6 +22,23 @@ function ProductInfo() {
     }, [productName]);
 
     if (!product) return <p className="mt-5 text-center">Loading...</p>
+
+    const isFavorited = favorites.some(
+        p => p.product_id === product.product_id
+    );
+
+    const toggleFavorite = () => {
+        setFavorites(prev => {
+            const alreadyFavorited = prev.some(
+                p => p.product_id === product.product_id
+            );
+
+            return alreadyFavorited
+                ? prev.filter(p => p.product_id !== product.product_id)
+                : [...prev, product]
+
+        });
+    };
 
     return (
         <div className="container mt-5">
@@ -56,6 +78,17 @@ function ProductInfo() {
 
                     <button className="btn btn-dark mt-3">
                         Add to basket
+                    </button>
+
+                    <hr />
+
+                    <button
+                        className={`btn ${isFavorited ? "btn-danger" : "btn-outline-danger"}`}
+                        onClick={toggleFavorite}
+                    >
+                        <i className={`bi ${
+                            isFavorited ? "bi-heart-fill" : "bi-heart"
+                        } fs-4`} />
                     </button>
                 </div>
             </div>

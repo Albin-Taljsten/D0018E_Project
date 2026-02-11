@@ -1,15 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import type { Product } from "../types";
 
-export interface Product{
-    product_id: number;
-    name: string;
-    description: string;
-    stock: number;
-    type: string;
-    price: number;
-}
+
 function GetProducts(){
     const [data, setData] = useState<Product[]>([]);
     const navigate = useNavigate();
