@@ -2,15 +2,20 @@ import { FavoriteItem, type Product } from "../components";
 
 interface Props {
     favorites: Product[];
+    setFavorites: React.Dispatch<React.SetStateAction<Product[]>>;
 }
 
-function FavoritePage({ favorites }: Props) {
+function FavoritePage({ favorites, setFavorites }: Props) {
     if (favorites.length === 0) {
         return (
             <div className="container mt-5 text-center">
                 <h4>No favorites yet <i className="bi bi-heart-full fs-4"></i></h4>
             </div>
         );
+    }
+
+    const handleRemove = (productId: number) => {
+        setFavorites(prev => prev.filter(p => p.product_id !== productId));
     }
 
     return (
@@ -22,6 +27,7 @@ function FavoritePage({ favorites }: Props) {
                     <FavoriteItem 
                         key={product.product_id}
                         product={product}
+                        onRemove={handleRemove}
                     />
                 ))}
             </div>

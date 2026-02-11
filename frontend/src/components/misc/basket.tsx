@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
+import type { BasketItem } from "../types";
 
-interface BasketItem {
-    product_id: number;
-    name: string;
-    quantity: number;
-    price: number;
-}
 
 function Basket() {
     const [data, setData] = useState<BasketItem[]>([]);

@@ -22,9 +22,10 @@ router.get('/', authenticateToken, async (req, res) => {
     }
 });
 
-router.post('/add', authenticateToken, async (req, res) => {
-    const user_id = req.user.id;
-    const { product_id, quantity } = req.body;
+router.post('/add/:product_id', authenticateToken, async (req, res) => {
+    const user_id        = req.user.id;
+    const { product_id } = req.params;
+    const { quantity }   = req.body;
     try {
         await addToBasket(user_id, product_id, quantity);
         res.json({message: "Product added to basket"});

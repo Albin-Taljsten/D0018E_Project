@@ -18,7 +18,7 @@ function App() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/LoginPage" element={<LoginPage />} />
 
-                    <Route path="/FavoritePage" element={<FavoritePage favorites={favorites}/>} />
+                    <Route path="/FavoritePage" element={<FavoritePage favorites={favorites} setFavorites={setFavorites}/>} />
 
                     <Route path='/products/:productName' element={<ProductInfo key={location.pathname} favorites={favorites} setFavorites={setFavorites}/>} />
                     <Route path='/basketPage' element={<BasketPage />} />

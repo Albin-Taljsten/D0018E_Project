@@ -2,9 +2,10 @@ import type { Product } from "../types";
 
 interface Props {
     product: Product;
+    onRemove: (productId: number) => void;
 }
 
-function FavoriteItem({ product }: Props) {
+function FavoriteItem({ product, onRemove }: Props) {
     return (
         <div className="card shadow-sm">
             <div className="card-body">
@@ -39,9 +40,14 @@ function FavoriteItem({ product }: Props) {
 
                         <strong>${product.price}</strong>
 
-                        <button className="btn btn-outline-danger btn-sm mt-2">
-                            <span>Remove</span>
-                            <i className="bi bi-heart-full fs-4"></i>
+                        <hr />
+
+                        {/* Remove button */}
+                        <button 
+                            className="btn btn-outline-danger btn-sm mt-2"
+                            onClick={() => onRemove(product.product_id)}
+                        >
+                            <span className="fs-6 d-flex align-items-center">Remove</span>
                         </button>
                     </div>
 

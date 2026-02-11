@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import axios from "axios";
-import type { Product } from "../types";
+import type { BasketItem, Product } from "../types";
 
 interface Props {
     favorites: Product[];
@@ -11,6 +11,7 @@ interface Props {
 function ProductInfo({ favorites, setFavorites }: Props) {
     const { productName } = useParams();
     const [product, setProduct] = useState<Product | null>(null);
+    const [data, setData] = useState<BasketItem[]>([]);
 
     useEffect(() => {
         if (productName) {
@@ -27,7 +28,7 @@ function ProductInfo({ favorites, setFavorites }: Props) {
         p => p.product_id === product.product_id
     );
 
-    const toggleFavorite = () => {
+    const addToFavorite = () => {
         setFavorites(prev => {
             const alreadyFavorited = prev.some(
                 p => p.product_id === product.product_id
@@ -38,6 +39,24 @@ function ProductInfo({ favorites, setFavorites }: Props) {
                 : [...prev, product]
 
         });
+    };
+
+    const addToBasket = (product_id: number, new_quantity: number = 1) => {
+        const quantity = Math.max(1, new_quantity)
+        const token = localStorage.getItem("token");
+
+        setData(prev => prev.map(item => item.product_id === product_id ? {...item, quantity} : item));
+
+        axios
+        .post(`http://localhost:5000/basket/add/${product_id}`,
+            { quantity }, 
+            {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        
+        })
+        .catch((err) => console.log(err));
     };
 
     return (
@@ -76,7 +95,10 @@ function ProductInfo({ favorites, setFavorites }: Props) {
 
                     <h3 className="mt-4">${product.price}</h3>
 
-                    <button className="btn btn-dark mt-3">
+                    <button 
+                        className="btn btn-dark mt-3"
+                        onClick={() => addToBasket(product.product_id, 1)}
+                    >
                         Add to basket
                     </button>
 
@@ -84,10 +106,10 @@ function ProductInfo({ favorites, setFavorites }: Props) {
 
                     <button
                         className={`btn ${isFavorited ? "btn-danger" : "btn-outline-danger"}`}
-                        onClick={toggleFavorite}
+                        onClick={addToFavorite}
                     >
                         <i className={`bi ${
-                            isFavorited ? "bi-heart-fill" : "bi-heart"
+                            isFavorited ? "bi-heart" : "bi-heart-fill"
                         } fs-4`} />
                     </button>
                 </div>

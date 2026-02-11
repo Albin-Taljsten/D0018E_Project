@@ -24,7 +24,7 @@ function GetProducts(){
     // .catch((err) => console.log(err));
 
     return (
-        <div className="container d-flex flex-wrap justify-content-start gap-3 border border-dark border-2 pt-1 pb-1 my-5 mx-auto rounded">
+        <div className="container-fluid d-flex flex-wrap justify-content-start gap-3">
             {data.map((product) => (
                 <button
                     key={product.product_id}
