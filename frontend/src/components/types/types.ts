@@ -14,8 +14,8 @@ export interface BasketItem {
     price: number;
 }
 
-export interface OrderItem {
-    order_item_id: number;
-    quantity: number;
-    product_id: number;
-}
+// export interface OrderItem {
+//     order_item_id: number;
+//     quantity: number;
+//     product_id: number;
+// }
