@@ -5,12 +5,16 @@ const registerRoute = require('./routes/register')
 const loginRoute = require('./routes/login')
 const productSpecificRoute = require('./routes/productSpecific');
 const basketRoute = require('./routes/basket');
+const checkOutRoute = require('./routes/handleCheckout');
+const orderRoute = require("./routes/order")
 const { authenticateToken, authenticateAdmin } = require('./middleware/authenticate');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use('/orders', orderRoute);
+app.use('/checkout', checkOutRoute);
 app.use('/basket', basketRoute);
 app.use('/users/register', registerRoute);
 app.use('/users/login', loginRoute);

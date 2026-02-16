@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { Footer, HamburgerMenu, NavBar, ProductInfo, ScrollToTop, type Product } from './components'
-import { FavoritePage, HomePage, LoginPage } from './pages'
+import { FavoritePage, HomePage, LoginPage, OrderPage } from './pages'
 import BasketPage from './pages/basketPage'
 import { useState } from 'react'
 
@@ -22,6 +22,8 @@ function App() {
 
                     <Route path='/products/:productName' element={<ProductInfo key={location.pathname} favorites={favorites} setFavorites={setFavorites}/>} />
                     <Route path='/basketPage' element={<BasketPage />} />
+
+                    <Route path='/orders' element={<OrderPage />} />
                 </Routes>
             </main>
             <Footer />
