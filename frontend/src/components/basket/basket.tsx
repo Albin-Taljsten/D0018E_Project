@@ -9,6 +9,7 @@ function Basket() {
     const [data, setData] = useState<BasketItem[]>([]);
     const [showModal, setShowModal] = useState(false);
     const [orderData, setOrderData] = useState<BasketItem[]>([]);
+    const [errorMessage, setErrorMessage ] = useState<string | null>(null);
     const navigate = useNavigate();
     // Fetch basket data from the backend when the component mounts
     // You can use axios or fetch to get the data and set it in state
@@ -49,22 +50,26 @@ function Basket() {
     }
     
     
-    const updateQuantity = (product_id: number, new_quantity: number) => {
+    const updateQuantity = async (product_id: number, new_quantity: number, name: string) => {
         const quantity = Math.max(1, new_quantity)
         const token = localStorage.getItem("token");
 
-        setData(prev => prev.map(item => item.product_id === product_id ? {...item, quantity} : item));
-
-        axios
-        .post(`http://localhost:5000/basket/update/${product_id}`,
-            { quantity }, 
-            {
-            headers: {
-                Authorization: `Bearer ${token}`
+        try {
+            await axios.post(
+                `http://localhost:5000/basket/update/${product_id}`,
+                { quantity, name }, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            )
+            setData(prev => prev.map(item => item.product_id === product_id ? {...item, quantity} : item));
+            }catch(err: any){
+                const message = err.response?.data?.message || "Someting went wrong";
+                setErrorMessage(message)
             }
         
-        })
-        .catch((err) => console.log(err));
     }
 
 
@@ -111,6 +116,11 @@ function Basket() {
             <div className="row">
 
                 <div className="col-lg-8">
+                    {errorMessage && (
+                        <div className="alert alert-danger">
+                            {errorMessage}
+                        </div>
+                    )}
                     {data.map((item: any) => (
                         <div key={item.product_id} className="card shadow-sm mb-4">
 
@@ -137,7 +147,7 @@ function Basket() {
 
                                                 <div className="input-group mb-2" style={{maxWidth: "200px"}}>
                                                     <button className="btn btn-outline-secondary" 
-                                                        onClick={() => updateQuantity(item.product_id, item.quantity - 1)} 
+                                                        onClick={() => updateQuantity(item.product_id, item.quantity - 1, item.name)} 
                                                         disabled = {item.quantity <= 1}>
                                                         -
                                                     </button>
@@ -160,12 +170,12 @@ function Basket() {
                                                                 )
                                                             )
                                                         }}
-                                                        onBlur = {() => updateQuantity(item.product_id, item.quantity)}
+                                                        onBlur = {() => updateQuantity(item.product_id, item.quantity, item.name)}
                                                     />
                                                     
                                                     <button
                                                         className="btn btn-outline-secondary"
-                                                        onClick={() => updateQuantity(item.product_id, item.quantity + 1)}>
+                                                        onClick={() => updateQuantity(item.product_id, item.quantity + 1, item.name)}>
                                                         +
                                                     </button>
                                                 </div>
@@ -173,7 +183,7 @@ function Basket() {
                                         
                                         <div className="col text-end">
                                             <h5 className="mb-2">
-                                                ${item.quantity * item.price}
+                                                ${(item.quantity * item.price).toFixed(2)}
                                             </h5>                                      
                                             <button 
                                                 className="btn btn-sm btn-outline-danger" 
@@ -195,9 +205,14 @@ function Basket() {
                         <div className="card-body">
                             <div className="d-flex justify-content-between mb-3">
                                 <h5 className="mb-0">Total:</h5>
-                                <h5 className="mb-0">${data.reduce((total, item) => total + (item.quantity * item.price), 0)}</h5>
+                                <h5 className="mb-0">${data.reduce((total, item) => total + (item.quantity * item.price) , 0).toFixed(2)}</h5>
                             </div>
                             <button className="btn btn-dark w-100" onClick={handleCheckout} disabled={data.length === 0}>Checkout</button>
+                        </div>
+                    </div>
+                    <div className="card shadow-sm" style={{position: "sticky", top: "180px"}}>
+                        <div className="card-body">
+                            <button className="btn btn-dark w-100" onClick={() => navigate("/orders")}>Look at all orders</button>
                         </div>
                     </div>
                 </div>

@@ -26,6 +26,22 @@ function updateQuantityBasket(user_id, product_id, quantity) {
     });
 }
 
+function checkStock(product_id){
+    return new Promise((resolve, reject) => {
+        const sql = "SELECT stock FROM products WHERE product_id = ?"
+        db.query(sql, [product_id], (err, result) => {
+            if(err){
+                console.error(err);
+                return reject(err);
+            }
+            if(result.length === 0){
+                return reject(new Error("Product not found"));
+            }
+            resolve(result[0].stock);
+        })
+    })
+}
+
 function addToBasket(user_id, product_id, quantity) {
     return new Promise((resolve, reject) => {
         const sql = `
@@ -61,5 +77,6 @@ module.exports = {
     createBasketForUser,
     updateQuantityBasket,
     addToBasket,
-    removeFromBasket
+    removeFromBasket,
+    checkStock
 };
