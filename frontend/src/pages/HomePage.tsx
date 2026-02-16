@@ -1,6 +1,32 @@
-import GetProducts from "../components/misc/GetProducts"
+import { useEffect } from "react";
+import type { Product } from "../components";
+import GetProducts from "../components/product/GetProducts"
+import axios from "axios";
 
-function HomePage(){
+interface Props {
+    setFavorites: React.Dispatch<React.SetStateAction<Product[]>>;
+}
+
+function HomePage({ setFavorites }: Props) {
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+        
+        const fetchFavorites = async () => {
+            try {
+                const res = await axios.get("http://localhost:5000/favorites", {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                setFavorites(res.data);
+            } catch (err) {
+                console.error("Failed to load favorites:", err);
+            }
+        }
+
+        fetchFavorites();
+    }, [setFavorites]);
+
     return(
         <div className="container-fluid p-5 my-2">
             <p className="h1 text-center">Home Page</p>

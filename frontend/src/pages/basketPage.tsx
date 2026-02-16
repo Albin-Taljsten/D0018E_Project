@@ -1,4 +1,4 @@
-import Basket from "../components/misc/basket";
+import Basket from "../components/basket/basket";
 
 function BasketPage() {
 

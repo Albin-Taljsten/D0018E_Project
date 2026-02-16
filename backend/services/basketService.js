@@ -63,6 +63,3 @@ module.exports = {
     addToBasket,
     removeFromBasket
 };
-
-
-addToBasket(9, 14, 1);

@@ -4,6 +4,7 @@ const db = require('../db');
 const bcrypt = require('bcrypt');
 const { createBasketForUser } = require('../services/basketService');
 const { generateToken } = require('../services/authenticationService');
+const { createFavoritesForUser } = require('../services/favoritesService');
 
 
 router.post('/', (req, res) => {
@@ -36,6 +37,7 @@ router.post('/', (req, res) => {
             const userId = result.insertId;
 
             await createBasketForUser(userId);
+            await createFavoritesForUser(userId);
             
             const token = generateToken({ id: userId, email: Email });
 

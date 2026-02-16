@@ -28,17 +28,47 @@ function ProductInfo({ favorites, setFavorites }: Props) {
         p => p.product_id === product.product_id
     );
 
-    const addToFavorite = () => {
-        setFavorites(prev => {
-            const alreadyFavorited = prev.some(
-                p => p.product_id === product.product_id
+    const addToFavorite = async () => {
+        if (!product) return;
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("Please log in to add favorites.");
+            return;
+        }
+
+        try {
+            await axios.post(
+                `http://localhost:5000/favorites/add/${product.product_id}`,
+                {},
+                { headers: { Authorization: `Bearer ${token}` } }
             );
+            setFavorites(prev => [...prev, product]);
+        } catch (err) {
+            console.error(err);
+            alert("Error adding to favorites.");
+        }
+    };
 
-            return alreadyFavorited
-                ? prev.filter(p => p.product_id !== product.product_id)
-                : [...prev, product]
+    const removeFromFavorite = async () => {
+        if (!product) return;
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("Please log in to add favorites.");
+            return;
+        }
 
-        });
+        try {
+            await axios.delete(
+                `http://localhost:5000/favorites/remove/${product.product_id}`,
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+            setFavorites(prev => 
+                prev.filter(p => p.product_id !== product.product_id)
+            );
+        } catch (err) {
+            console.error(err);
+            alert("Error removing from favorites.");
+        }
     };
 
     const addToBasket = (product_id: number, new_quantity: number = 1) => {
@@ -106,7 +136,7 @@ function ProductInfo({ favorites, setFavorites }: Props) {
 
                     <button
                         className={`btn ${isFavorited ? "btn-danger" : "btn-outline-danger"}`}
-                        onClick={addToFavorite}
+                        onClick={isFavorited ? removeFromFavorite : addToFavorite}
                     >
                         <i className={`bi ${
                             isFavorited ? "bi-heart" : "bi-heart-fill"

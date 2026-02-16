@@ -11,11 +11,11 @@ function App() {
     return (
         <>
             <ScrollToTop />
-            <NavBar />
+            <NavBar setFavorites={setFavorites}/>
             <HamburgerMenu />
             <main style={{paddingTop: '10vh', paddingBottom: '100vh'}}>
                 <Routes>
-                    <Route path="/" element={<HomePage />} />
+                    <Route path="/" element={<HomePage setFavorites={setFavorites}/>} />
                     <Route path="/LoginPage" element={<LoginPage />} />
 
                     <Route path="/FavoritePage" element={<FavoritePage favorites={favorites} setFavorites={setFavorites}/>} />

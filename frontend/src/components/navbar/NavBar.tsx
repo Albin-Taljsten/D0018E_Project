@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom'
 import { BasketIcon, FavoriteIcon, LoginIcon } from '../icons'
 import { HamburgerButton, SearchBar } from '.'
-import { useState } from 'react'
+import type { Product } from '../types';
 
-function NavBar(){
-    const [ active, setActive] = useState(!!localStorage.getItem("token"));
-    const handleLogout = () => {
-        localStorage.removeItem("token")
-        setActive(false)
-    }
+interface Props {
+    setFavorites: React.Dispatch<React.SetStateAction<Product[]>>;
+}
+
+function NavBar({ setFavorites }: Props) {
     return(
         <div>
             <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top" style={{height: '10vh'}}>
@@ -35,7 +34,7 @@ function NavBar(){
                                 <FavoriteIcon></FavoriteIcon>
                             </li>
                             <li className="nav-item">
-                                <LoginIcon></LoginIcon>
+                                <LoginIcon setFavorites={setFavorites}></LoginIcon>
                             </li>
                             <li className="nav-item">
                                 <BasketIcon></BasketIcon>

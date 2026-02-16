@@ -3,20 +3,24 @@ import axios from "axios";
 
 import type { BasketItem } from "../types";
 import CheckOut from "./CheckOut";
+import { useNavigate } from "react-router-dom";
 
 function Basket() {
     const [data, setData] = useState<BasketItem[]>([]);
     const [showModal, setShowModal] = useState(false);
     const [orderData, setOrderData] = useState<BasketItem[]>([]);
+    const navigate = useNavigate();
     // Fetch basket data from the backend when the component mounts
     // You can use axios or fetch to get the data and set it in state
     
     useEffect(() => {
         const token = localStorage.getItem("token");
+
         if (!token) {
-            console.log("No token found, user might not be logged in.");
+            navigate("/LoginPage");
             return;
         }
+        
         axios
         .get("http://localhost:5000/basket", {
             headers: {
@@ -25,7 +29,7 @@ function Basket() {
         })
         .then((res) => setData(res.data))
         .catch((err) => console.log(err))
-    }, []);
+    }, [navigate]);
 
     const removeFromBasket = (product_id: number) => {
         // Implement the logic to remove an item from the basket
