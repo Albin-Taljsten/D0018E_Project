@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
 
-interface BasketItem {
-    product_id: number;
-    name: string;
-    quantity: number;
-    price: number;
-}
+import type { BasketItem } from "../types";
+import CheckOut from "./CheckOut";
 
 function Basket() {
     const [data, setData] = useState<BasketItem[]>([]);
-
-    
+    const [showModal, setShowModal] = useState(false);
+    const [orderData, setOrderData] = useState<BasketItem[]>([]);
     // Fetch basket data from the backend when the component mounts
     // You can use axios or fetch to get the data and set it in state
     
@@ -65,6 +61,43 @@ function Basket() {
         
         })
         .catch((err) => console.log(err));
+    }
+
+
+    const handleCheckout = () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            console.log("No token found, user might not be logged in.");
+            return;
+        }
+        axios
+        .post("http://localhost:5000/checkout",
+            { basket_items: data },
+            { headers: { Authorization: `Bearer ${token}` }}
+        )
+        .then(res => {
+            console.log(res.data.message);
+            setOrderData(data);
+            setData([]) 
+            setShowModal(true)
+        })
+        .catch((err) => console.log(err))
+    }
+
+    const getAllOrders = () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            console.log("No token found, user might not be logged in.");
+            return;
+        }
+        axios
+        .get("http://localhost:5000/orders",
+            { headers: { Authorization: `Bearer ${token}` }}
+        )
+        .then(res => {
+            console.log(res.data.message);
+        })
+        .catch((err) => console.log(err))
     }
 
     return (
@@ -160,11 +193,16 @@ function Basket() {
                                 <h5 className="mb-0">Total:</h5>
                                 <h5 className="mb-0">${data.reduce((total, item) => total + (item.quantity * item.price), 0)}</h5>
                             </div>
-                            <button className="btn btn-dark w-100">Checkout</button>
+                            <button className="btn btn-dark w-100" onClick={handleCheckout} disabled={data.length === 0}>Checkout</button>
                         </div>
                     </div>
                 </div>
             </div>
+            <CheckOut 
+                item={orderData}
+                show={showModal}
+                onClose={() => setShowModal(false)} 
+            />
         </div>
     );
 }

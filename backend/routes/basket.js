@@ -22,7 +22,7 @@ router.get('/', authenticateToken, async (req, res) => {
     }
 });
 
-router.post('/add', authenticateToken, async (req, res) => {
+router.post('/add/:product_id', authenticateToken, async (req, res) => {
     const user_id = req.user.id;
     const { product_id, quantity } = req.body;
     try {
