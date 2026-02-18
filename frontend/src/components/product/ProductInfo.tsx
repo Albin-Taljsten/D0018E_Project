@@ -12,6 +12,7 @@ function ProductInfo({ favorites, setFavorites }: Props) {
     const { productName } = useParams();
     const [product, setProduct] = useState<Product | null>(null);
     const [data, setData] = useState<BasketItem[]>([]);
+    const [ isInBasket, setIsInBasket ] = useState(false);
 
     useEffect(() => {
         if (productName) {
@@ -20,7 +21,25 @@ function ProductInfo({ favorites, setFavorites }: Props) {
                 .then((res) => setProduct(res.data))
                 .catch((err) => console.log(err));
         }
+
     }, [productName]);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if(!token || !product?.product_id) return;
+
+        axios.get(`http://localhost:5000/basket/get/${product.product_id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then((res) => {
+            
+            setIsInBasket(res.data.length > 0);
+        })
+        .catch((err) => console.log(err))
+        
+    }, [product]);
 
     if (!product) return <p className="mt-5 text-center">Loading...</p>
 
@@ -86,6 +105,7 @@ function ProductInfo({ favorites, setFavorites }: Props) {
             }
         
         })
+        .then(()=> setIsInBasket(true))
         .catch((err) => console.log(err));
     };
 
@@ -133,9 +153,9 @@ function ProductInfo({ favorites, setFavorites }: Props) {
                     <button 
                         className="btn btn-dark mt-3"
                         onClick={() => addToBasket(product.product_id, 1)}
-                        disabled={product.stock === 0}
+                        disabled={product.stock === 0 || isInBasket}
                     >
-                        Add to basket
+                        {isInBasket ? "Product in basket" : "Add to basket"}
                     </button>
 
                     <hr />

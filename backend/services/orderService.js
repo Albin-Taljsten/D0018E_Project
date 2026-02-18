@@ -3,7 +3,7 @@ const db = require('../db');
 
 function getAllOrders(user_id){
     return new Promise((resolve, reject) => {
-        const sql = `SELECT o.order_id, o.orderDate, o.status, o.total_price,
+        const sql = `SELECT o.order_id, o.order_date, o.status, o.total_price,
                             p.product_id, p.name, p.price, oi.quantity, oi.order_item_id 
                      FROM orders o 
                      JOIN order_item oi ON o.order_id = oi.order_order_id 
@@ -21,7 +21,7 @@ function getAllOrders(user_id){
                 if(!ordersMap.has(row.order_id)){
                     ordersMap.set(row.order_id, {
                         order_id: row.order_id,
-                        orderDate: row.orderDate,
+                        order_date: row.order_date,
                         status: row.status,
                         total_price: row.total_price,
                         items: []
@@ -42,7 +42,7 @@ function getAllOrders(user_id){
 
 function getOrder(order_id, user_id){
     return new Promise((resolve, reject) => {
-        const sql = `SELECT o.order_id, o.orderDate, o.status, o.total_price,
+        const sql = `SELECT o.order_id, o.order_date, o.status, o.total_price,
                             p.product_id, p.name, p.price, p.image, oi.quantity, oi.order_item_id 
                      FROM orders o 
                      JOIN order_item oi ON o.order_id = oi.order_order_id 
@@ -59,7 +59,7 @@ function getOrder(order_id, user_id){
             }
             const order = {
                 order_id: rows[0].order_id,
-                orderDate: rows[0].orderDate,
+                order_date: rows[0].order_date,
                 status: rows[0].status,
                 total_price: rows[0].total_price,
                 items: []

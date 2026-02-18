@@ -25,7 +25,7 @@ export interface OrderItem {
 
 export interface Order {
     order_id: number;
-    orderDate: string;
+    order_date: string;
     status: string;
     total_price: number;
     items: OrderItem[];
