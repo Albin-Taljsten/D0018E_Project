@@ -39,7 +39,7 @@ function Orders(){
                             onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
                         >   
                             <p><strong>Order ID:</strong> {order.order_id}</p>
-                            <p><strong>Order Date:</strong> {order.orderDate.split("T")[0]}</p>
+                            <p><strong>Order Date:</strong> {order.order_date.split("T")[0]}</p>
                             <p><strong>Status:</strong> {order.status}</p>
                             <p><strong>Total Price:</strong> ${order.total_price}</p>
                         </button>
@@ -51,11 +51,3 @@ function Orders(){
 }
 
 export default Orders;
-
-// <ul>
-//     {order.items.map(item => (
-//         <li key={item.order_item_id}>
-//             {item.name} * {item.quantity} (${item.price})
-//         </li>
-//     ))}
-// </ul>

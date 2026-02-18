@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
-const { createBasketForUser, updateQuantityBasket, addToBasket, removeFromBasket } = require('../services/basketService');
+const { getBasketItem, updateQuantityBasket, addToBasket, removeFromBasket } = require('../services/basketService');
 const { checkStock } = require("../services/productsService")
 const { authenticateToken } = require('../middleware/authenticate');
 
@@ -22,6 +22,18 @@ router.get('/', authenticateToken, async (req, res) => {
         res.status(500).json({message: "server error"});
     }
 });
+
+router.get('/get/:product_id', authenticateToken, async (req, res) => {
+    const user_id = req.user.id;
+    const product_id = req.params.product_id;
+    try {
+        const result = await getBasketItem(user_id, product_id);
+        res.json(result)
+    }catch (err) {
+        console.error(err);
+        res.status(500).json({message: "server error"});  
+    }
+})
 
 router.post('/add/:product_id', authenticateToken, async (req, res) => {
     const user_id        = req.user.id;

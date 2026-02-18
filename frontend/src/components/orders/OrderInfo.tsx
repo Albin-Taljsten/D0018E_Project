@@ -10,7 +10,6 @@ function OrderInfo(){
     const { id } = useParams();
 
     useEffect(() => {
-        console.log("ID: ", id)
         const token = localStorage.getItem("token");
 
         if (!token) {
@@ -41,7 +40,7 @@ function OrderInfo(){
                         <div  className="card shadow-sm mb-4">
                             <div className="card-body">
                                 <h5>Order: {order.order_id}</h5>
-                                <p><small>Order Date: {order.orderDate.split("T")[0]}</small></p>
+                                <p><small>Order Date: {order.order_date.split("T")[0]}</small></p>
                                 {order.items.map((product) => (
                                     <div key={product.order_item_id} className="row align-items-center mb-3">
                                         <div className="col-md-6 ">

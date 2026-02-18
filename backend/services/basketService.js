@@ -57,10 +57,24 @@ function removeFromBasket(user_id, product_id) {
     });
 }
 
+function getBasketItem(user_id, product_id){
+    return new Promise((resolve, reject) => {
+        const sql = `SELECT * FROM basket_item WHERE basket_basket_id = (SELECT basket_id FROM basket WHERE user_id = ?) AND product_id = ?`;
+        db.query(sql,[user_id, product_id], (err, result) => {
+            if (err) {
+                console.error(err);
+                return reject(err);
+            }
+            resolve(result);
+        })
+    })
+}
+
 
 module.exports = {
     createBasketForUser,
     updateQuantityBasket,
     addToBasket,
-    removeFromBasket
+    removeFromBasket,
+    getBasketItem
 };

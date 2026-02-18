@@ -1,10 +1,11 @@
 function SearchBar() {
     return (
-        <form className='d-flex mx-auto' style={{transform: "translateX(50%)"}}>
-            <input className='form-control me-2' 
+        <form className='d-flex'>
+            <input className='form-control' 
                 type='search' 
                 placeholder='Search for product' 
-                style={{width: '30em'}}>
+                //style={{width: '30em'}}
+                >
             </input>
         </form>
     )
