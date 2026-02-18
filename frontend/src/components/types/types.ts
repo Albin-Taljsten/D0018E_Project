@@ -20,11 +20,13 @@ export interface OrderItem {
     quantity: number;
     name: string;
     price: number;
+    image: string;
 }
 
 export interface Order {
     order_id: number;
-    order_date: string;
+    orderDate: string;
     status: string;
+    total_price: number;
     items: OrderItem[];
 }

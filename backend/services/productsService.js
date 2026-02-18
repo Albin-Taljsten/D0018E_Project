@@ -1,3 +1,4 @@
+
 const db = require('../db');
 
 function addProduct(name, description, price, stock, type, image) {
@@ -39,8 +40,37 @@ function updateProduct(product_id, name, description, price, stock, type, image)
     });
 }
 
+function getPriceFromProduct(product_id){
+    return new Promise((resolve, reject) => {
+        const sql = `SELECT price FROM products WHERE product_id = ?`;
+        db.query(sql, [product_id], (err, result) => {
+            if (err){
+                console.error(err);
+                return reject(err);
+            }
+            resolve(result)
+        })
+    })
+}
+function checkStock(product_id){
+    return new Promise((resolve, reject) => {
+        const sql = "SELECT stock FROM products WHERE product_id = ?"
+        db.query(sql, [product_id], (err, result) => {
+            if(err){
+                console.error(err);
+                return reject(err);
+            }
+            if(result.length === 0){
+                return reject(new Error("Product not found"));
+            }
+            resolve(result[0].stock);
+        })
+    })
+}
 module.exports = {
     addProduct,
     deleteProduct,
-    updateProduct
+    updateProduct,
+    getPriceFromProduct,
+    checkStock
 }

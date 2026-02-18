@@ -124,10 +124,16 @@ function ProductInfo({ favorites, setFavorites }: Props) {
                     <p><strong>Stock: </strong>{product.stock}</p>
 
                     <h3 className="mt-4">${product.price}</h3>
+                    {product.stock === 0 && (
+                        <div className="alert alert-danger">
+                            Product out of stock
+                        </div>
+                    )}
 
                     <button 
                         className="btn btn-dark mt-3"
                         onClick={() => addToBasket(product.product_id, 1)}
+                        disabled={product.stock === 0}
                     >
                         Add to basket
                     </button>

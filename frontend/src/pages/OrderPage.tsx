@@ -1,4 +1,4 @@
-import Orders from "../components/misc/Orders"
+import Orders from "../components/orders/Orders"
 function OrderPage(){
     return (
         <div>

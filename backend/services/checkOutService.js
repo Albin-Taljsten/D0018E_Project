@@ -14,7 +14,7 @@ function createOrder(user_id, status){
     })
 }
 
-function addToOrder(order_id, product_id, quantity){
+function addToOrderItem(order_id, product_id, quantity){
     return new Promise((resolve, reject) => {
         const sql = `
             INSERT INTO order_item (order_order_id, product_id, quantity) 
@@ -46,11 +46,25 @@ function updateStock(product_id, quantity){
     })
 }
 
+function addToOrder(order_id, total_price){
+    return new Promise((resolve, reject) => {
+        const sql = `UPDATE orders SET total_price = ? WHERE order_id = ?`;
+        db.query(sql, [total_price, order_id], (err, result) => {
+            if(err){
+                console.error(err);
+                return reject(err);
+            }
+            resolve(result)
+        })
+    })
+}
+
 
 
 module.exports = {
     createOrder,
-    addToOrder,
-    updateStock
+    addToOrderItem,
+    updateStock,
+    addToOrder
 }
 
