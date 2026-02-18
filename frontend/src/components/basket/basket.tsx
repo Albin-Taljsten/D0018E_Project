@@ -93,21 +93,6 @@ function Basket() {
         .catch((err) => console.log(err))
     }
 
-    const getAllOrders = () => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            console.log("No token found, user might not be logged in.");
-            return;
-        }
-        axios
-        .get("http://localhost:5000/orders",
-            { headers: { Authorization: `Bearer ${token}` }}
-        )
-        .then(res => {
-            console.log(res.data.message);
-        })
-        .catch((err) => console.log(err))
-    }
 
     return (
         <div className="container py-5">

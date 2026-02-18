@@ -1,5 +1,5 @@
 import { Route, Routes, useLocation } from 'react-router-dom'
-import { Footer, HamburgerMenu, NavBar, ProductInfo, ScrollToTop, type Product } from './components'
+import { Footer, HamburgerMenu, NavBar, ProductInfo, ScrollToTop, OrderInfo, type Product } from './components'
 import { FavoritePage, HomePage, LoginPage, OrderPage } from './pages'
 import BasketPage from './pages/basketPage'
 import { useState } from 'react'
@@ -24,6 +24,7 @@ function App() {
                     <Route path='/basketPage' element={<BasketPage />} />
 
                     <Route path='/orders' element={<OrderPage />} />
+                    <Route path='/orders/:id' element={<OrderInfo key={location.pathname}/>} />
                 </Routes>
             </main>
             <Footer />

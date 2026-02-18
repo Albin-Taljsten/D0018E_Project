@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
-const { createBasketForUser, updateQuantityBasket, addToBasket, removeFromBasket, checkStock } = require('../services/basketService');
+const { createBasketForUser, updateQuantityBasket, addToBasket, removeFromBasket } = require('../services/basketService');
+const { checkStock } = require("../services/productsService")
 const { authenticateToken } = require('../middleware/authenticate');
 
 // Get all products in the user's basket
@@ -27,6 +28,10 @@ router.post('/add/:product_id', authenticateToken, async (req, res) => {
     const { product_id } = req.params;
     const { quantity }   = req.body;
     try {
+        const stock = await checkStock(product_id);
+        if (quantity > stock){
+            return res.status(400).json({message: `Only ${stock} items left in stock for ${name}`})
+        }
         await addToBasket(user_id, product_id, quantity);
         res.json({message: "Product added to basket"});
     } catch (err) {
