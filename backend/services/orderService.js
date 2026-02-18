@@ -1,4 +1,3 @@
-const { resolve } = require('chart.js/helpers');
 const db = require('../db');
 
 function getAllOrders(user_id){
