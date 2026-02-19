@@ -10,7 +10,7 @@ interface Props {
 function NavBar({ setFavorites }: Props) {
     return(
         <div>
-            <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top position-relative" style={{height: '10vh'}}>
+            <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top" style={{height: '10vh'}}>
                 <div className="container-fluid fs-4 d-flex align-items-center flax-wrap">
                     {/* <div className="collapse navbar-collapse" id="collapsibleNavbar"> */}
                         <ul className="navbar-nav align-item-center">
