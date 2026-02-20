@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import axios from "axios";
-import type { BasketItem, Product } from "../types";
+import { HOST, type BasketItem, type Product } from "../types";
 
 interface Props {
     favorites: Product[];
@@ -17,7 +17,7 @@ function ProductInfo({ favorites, setFavorites }: Props) {
     useEffect(() => {
         if (productName) {
             axios
-                .get(`http://localhost:5000/products/${productName}`)
+                .get(`http://${HOST}:5000/products/${productName}`)
                 .then((res) => setProduct(res.data))
                 .catch((err) => console.log(err));
         }
@@ -28,7 +28,7 @@ function ProductInfo({ favorites, setFavorites }: Props) {
         const token = localStorage.getItem("token");
         if(!token || !product?.product_id) return;
 
-        axios.get(`http://localhost:5000/basket/get/${product.product_id}`, {
+        axios.get(`http://${HOST}:5000/basket/get/${product.product_id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -57,7 +57,7 @@ function ProductInfo({ favorites, setFavorites }: Props) {
 
         try {
             await axios.post(
-                `http://localhost:5000/favorites/add/${product.product_id}`,
+                `http://${HOST}:5000/favorites/add/${product.product_id}`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -78,7 +78,7 @@ function ProductInfo({ favorites, setFavorites }: Props) {
 
         try {
             await axios.delete(
-                `http://localhost:5000/favorites/remove/${product.product_id}`,
+                `http://${HOST}:5000/favorites/remove/${product.product_id}`,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             setFavorites(prev => 
@@ -97,7 +97,7 @@ function ProductInfo({ favorites, setFavorites }: Props) {
         setData(prev => prev.map(item => item.product_id === product_id ? {...item, quantity} : item));
 
         axios
-        .post(`http://localhost:5000/basket/add/${product_id}`,
+        .post(`http://${HOST}:5000/basket/add/${product_id}`,
             { quantity }, 
             {
             headers: {

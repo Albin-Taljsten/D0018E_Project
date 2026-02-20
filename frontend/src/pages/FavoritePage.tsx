@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { FavoriteItem, type Product } from "../components";
+import { FavoriteItem, HOST, type Product } from "../components";
 import { useEffect } from "react";
 import axios from "axios";
 
@@ -21,7 +21,7 @@ function FavoritePage({ favorites, setFavorites }: Props) {
 
         const fetchFavorites = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/favorites", {
+                const res = await axios.get(`http://${HOST}:5000/favorites`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setFavorites(res.data);
@@ -43,7 +43,7 @@ function FavoritePage({ favorites, setFavorites }: Props) {
         }
 
         try {
-            await axios.delete(`http://localhost:5000/favorites/remove/${productId}`, {
+            await axios.delete(`http://${HOST}:5000/favorites/remove/${productId}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 

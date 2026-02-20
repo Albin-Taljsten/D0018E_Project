@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import type { Order } from "../types";
+import { HOST, type Order } from "../types";
 
 
 function Orders(){
@@ -14,7 +14,7 @@ function Orders(){
             console.log("No token found, user might not be logged in.");
             return;
         }
-        axios.get("http://localhost:5000/orders", {
+        axios.get(`http://${HOST}:5000/orders`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

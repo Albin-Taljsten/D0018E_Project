@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
 
-import type { BasketItem } from "../types";
+import { HOST, type BasketItem } from "../types";
 import CheckOut from "./CheckOut";
 import { useNavigate } from "react-router-dom";
 
@@ -23,7 +23,7 @@ function Basket() {
         }
         
         axios
-        .get("http://localhost:5000/basket", {
+        .get(`http://${HOST}:5000/basket`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -37,7 +37,7 @@ function Basket() {
         // This might involve making a DELETE request to the backend
         const token = localStorage.getItem("token");
         axios
-        .delete(`http://localhost:5000/basket/remove/${product_id}`, {
+        .delete(`http://${HOST}:5000/basket/remove/${product_id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -56,7 +56,7 @@ function Basket() {
 
         try {
             await axios.post(
-                `http://localhost:5000/basket/update/${product_id}`,
+                `http://${HOST}:5000/basket/update/${product_id}`,
                 { quantity, name }, 
                 {
                     headers: {
@@ -80,7 +80,7 @@ function Basket() {
             return;
         }
         axios
-        .post("http://localhost:5000/checkout",
+        .post(`http://${HOST}:5000/checkout`,
             { basket_items: data },
             { headers: { Authorization: `Bearer ${token}` }}
         )

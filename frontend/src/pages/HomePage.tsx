@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import type { Product } from "../components";
+import { HOST, type Product } from "../components";
 import GetProducts from "../components/product/GetProducts"
 import axios from "axios";
 
@@ -15,7 +15,7 @@ function HomePage({ setFavorites }: Props) {
         
         const fetchFavorites = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/favorites", {
+                const res = await axios.get(`http://${HOST}:5000/favorites`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setFavorites(res.data);

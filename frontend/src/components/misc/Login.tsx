@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { HOST } from "..";
 
 
 function Login(){
@@ -22,9 +23,9 @@ function Login(){
         e.preventDefault();
         try{
             if(action === "Create Account"){
-                await axios.post("http://localhost:5000/users/register", formData);
+                await axios.post(`http://${HOST}:5000/users/register`, formData);
             }
-            const res = await axios.post("http://localhost:5000/users/login", formData);
+            const res = await axios.post(`http://${HOST}:5000/users/login`, formData);
 
             localStorage.setItem("token", res.data.token);
             navigate("/")

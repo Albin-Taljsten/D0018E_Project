@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import type { Order } from "../types";
+import { HOST, type Order } from "../types";
 import axios from "axios";
 
 
@@ -19,7 +19,7 @@ function OrderInfo(){
         if(!id) return;
         
         axios
-        .get(`http://localhost:5000/orders/${id}`, {
+        .get(`http://${HOST}:5000/orders/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

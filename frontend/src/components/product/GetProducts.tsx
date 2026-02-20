@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import type { Product } from "../types";
+import { HOST, type Product } from "../types";
 
 
 function GetProducts(){
@@ -10,19 +10,10 @@ function GetProducts(){
 
     useEffect(() => {
         axios
-        .get("http://localhost:5000/products")
+        .get(`http://${HOST}:5000/products`)
         .then((res) => setData(res.data))
         .catch((err) => console.log(err))
     }, []);
-    // const token = localStorage.getItem("token");
-
-    // axios.get("http://localhost:5000/products", {
-    //     headers: {
-    //         Authorization: `Bearer ${token}`,
-    //     },
-    // }).then((res) => setData(res.data))
-    // .catch((err) => console.log(err));
-
     return (
         <div className="container-fluid d-flex flex-wrap justify-content-start gap-3">
             {data.map((product) => (
