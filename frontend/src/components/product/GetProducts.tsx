@@ -3,6 +3,24 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HOST, type Product } from "../types";
 
+/**
+* TODO: Add a way to pass in a property for what category to search for
+* The property should not be needed only optional
+* @example 
+* interface Props {
+*   category?: string;
+* }
+* 
+* // Then when using and coding:
+* 
+* <GetProducts category={"woman"} />
+* 
+* // or
+* 
+* <GetProducts category={"man"} /> // etc.
+* 
+* function GetProducts({ category }: Props) { ... }
+*/
 
 function GetProducts(){
     const [data, setData] = useState<Product[]>([]);

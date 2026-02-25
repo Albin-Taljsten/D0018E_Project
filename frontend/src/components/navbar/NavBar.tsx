@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { BasketIcon, FavoriteIcon, LoginIcon } from '../icons'
 import { HamburgerButton, SearchBar } from '.'
 import type { Product } from '../types';
+import HomeIcon from '../icons/HomeIcon';
 
 interface Props {
     setFavorites: React.Dispatch<React.SetStateAction<Product[]>>;
@@ -14,12 +15,12 @@ function NavBar({ setFavorites }: Props) {
                 <div className="container-fluid fs-4 d-flex align-items-center flax-wrap">
                     {/* <div className="collapse navbar-collapse" id="collapsibleNavbar"> */}
                         <ul className="navbar-nav align-item-center">
-                            <li className="nav-item">
+                            <li className="nav-item me-2">
                                 <HamburgerButton />
                             </li>
 
                             <li className="nav-item">
-                                <Link className="nav-link" to="/">Home</Link>
+                                <HomeIcon />
                             </li>
                         </ul>
 

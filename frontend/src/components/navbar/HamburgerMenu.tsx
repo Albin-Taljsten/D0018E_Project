@@ -31,7 +31,7 @@ function HamburgerMenu() {
         { name: "Women", path: "/women" },
         { name: "Men", path: "/men" },
         { name: "Children", path: "/children" },
-        { name: "Equipment", path: "/equipment" },
+        { name: "Equipment", path: "/" },
     ];
 
     const accountLinks = [

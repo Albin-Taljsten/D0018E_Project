@@ -28,8 +28,29 @@ function HomePage({ setFavorites }: Props) {
     }, [setFavorites]);
 
     return(
-        <div className="container-fluid p-5 my-2">
-            <p className="h1 text-center">Home Page</p>
+        <div className="container-fluid p-0" style={{ overflow: 'hidden' }}>
+            <img 
+                src="/images/Skiing1-copy.jpeg"
+                style={{
+                    width: '100%',
+                    height: '100vh',
+                    objectFit: 'cover',
+                    display: 'block',
+                }}
+                alt="Skiing1"
+            />
+            <div
+                style={{
+                    position: 'absolute',
+                    bottom: '-10vh',
+                    left: 0,
+                    width: '100%',
+                    height: '200px',
+                    background: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)',
+                    pointerEvents: 'none',
+                }}
+            ></div>
+            
             <GetProducts />
         </div>
     )

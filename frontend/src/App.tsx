@@ -3,6 +3,9 @@ import { Footer, HamburgerMenu, NavBar, ProductInfo, ScrollToTop, OrderInfo, typ
 import { FavoritePage, HomePage, LoginPage, OrderPage } from './pages'
 import BasketPage from './pages/basketPage'
 import { useState } from 'react'
+import CategoryWoman from './pages/CategoryWoman'
+import CategoryMan from './pages/CategoryMan'
+import CategoryChildren from './pages/CategoryChildren'
 
 function App() {
     const [favorites, setFavorites] = useState<Product[]>([]);
@@ -25,6 +28,10 @@ function App() {
 
                     <Route path='/orders' element={<OrderPage />} />
                     <Route path='/orders/:id' element={<OrderInfo key={location.pathname}/>} />
+
+                    <Route path='/women' element={<CategoryWoman />}/>
+                    <Route path='/men' element={<CategoryMan />}/>
+                    <Route path='/children' element={<CategoryChildren />}/>
                 </Routes>
             </main>
             <Footer />
