@@ -11,6 +11,7 @@ function Login(){
         Password: "",
     });
     const [action, setAction] = useState("Login");
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
 
     const navigate =useNavigate()
@@ -29,17 +30,24 @@ function Login(){
 
             localStorage.setItem("token", res.data.token);
             navigate("/")
+            alert(res.data.message)
             //To update the NavBar component to show "Logout" instead of "Login" after a successful login.
             window.location.reload();
             //Login successful, navigate to home page
-        }catch(err){
-            console.log(err);
+        }catch(err: any){
+                const message = err.response?.data?.message || "Someting went wrong";
+                setErrorMessage(message)
         }
     };
     return(
         <div className="container border border-dark border-2 pt-5 pb-5 my-5 mx-auto text-center rounded" style={{width: '500px'}}>
             <h2 className="text-decoration-underline">{action}</h2>
             <form className="mx-auto" style={{width: '300px'}}>
+                {errorMessage && (
+                        <div className="alert alert-danger">
+                            {errorMessage}
+                        </div>
+                )}
                 {action === "Create Account" && ( 
                     <div className="mb-3">
                     <label className="form-label">Name:</label>

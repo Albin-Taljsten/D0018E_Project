@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-router.get("/:productName", (req, res) => {
-    const { productName } = req.params;
+router.get("/:product_id", (req, res) => {
+    const product_id = req.params.product_id;
 
-    const query = 'SELECT * FROM products WHERE name = ?';
+    const query = 'SELECT * FROM products WHERE product_id = ?';
 
-    db.query(query, [productName], (err, result) => {
+    db.query(query, [product_id], (err, result) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ message: "Server error" });

@@ -19,7 +19,7 @@ function GetProducts(){
             {data.map((product) => (
                 <button
                     key={product.product_id}
-                    onClick={() => navigate(`/products/${product.name}`)}
+                    onClick={() => navigate(`/products/${product.product_id}`)}
                     type="button"
                     className="btn btn-light border border-dark border-2 pt-5 pb-5 my-5 mx-auto rounded shadow-sm hover-shadow-lg"
                     style={{ width: "200px", height: "300px" }}

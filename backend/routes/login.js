@@ -24,9 +24,9 @@ router.post('/', (req, res) => {
         
         if(await bcrypt.compare(Password, hashedPassword)){
             if(result[0].role === 'admin'){
-                return res.status(200).json({message: "Admin login successful", token, role: 'admin'});
+                return res.status(200).json({message: "Welcome Admin!", token, role: 'admin'});
             }else{
-                return res.status(200).json({message: "User login successful", token, role: 'user'});
+                return res.status(200).json({message: "Welcome!", token, role: 'user'});
             }
         }else{
             return res.status(401).json({message: "Invalid password"});
