@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom"
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import axios from "axios";
 import type { BasketItem, Product } from "../types";
+import ReviewForm from "./ReviewForm";
+
 
 interface Props {
     favorites: Product[];
@@ -9,20 +11,20 @@ interface Props {
 }
 
 function ProductInfo({ favorites, setFavorites }: Props) {
-    const { productName } = useParams();
+    const { product_id } = useParams();
     const [product, setProduct] = useState<Product | null>(null);
     const [data, setData] = useState<BasketItem[]>([]);
     const [ isInBasket, setIsInBasket ] = useState(false);
 
     useEffect(() => {
-        if (productName) {
+        if (product_id) {
             axios
-                .get(`http://localhost:5000/products/${productName}`)
+                .get(`http://localhost:5000/products/${product_id}`)
                 .then((res) => setProduct(res.data))
                 .catch((err) => console.log(err));
         }
 
-    }, [productName]);
+    }, [product_id]);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -111,6 +113,7 @@ function ProductInfo({ favorites, setFavorites }: Props) {
 
     return (
         <div className="container mt-5">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet"></link>
             <div className="row align-items-start">
 
                 {/* LEFT: Image */}
@@ -170,6 +173,7 @@ function ProductInfo({ favorites, setFavorites }: Props) {
                     </button>
                 </div>
             </div>
+            <ReviewForm/>
         </div>
     )
 }

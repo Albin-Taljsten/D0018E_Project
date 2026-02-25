@@ -8,12 +8,14 @@ const basketRoute = require('./routes/basket');
 const checkOutRoute = require('./routes/handleCheckout');
 const orderRoute = require("./routes/order");
 const favoritesRoute = require("./routes/favorites");
+const reviewRoute = require("./routes/reviews")
 const { authenticateToken, authenticateAdmin } = require('./middleware/authenticate');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use('/review', reviewRoute);
 app.use('/orders', orderRoute);
 app.use('/checkout', checkOutRoute);
 app.use('/basket', basketRoute);
