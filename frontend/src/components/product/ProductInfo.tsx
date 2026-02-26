@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom"
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import axios from "axios";
-import ReviewForm from "./ReviewForm";
 
 import { HOST, type BasketItem, type Product } from "../types";
+import ReviewForm from "./ReviewForm";
+import Reviews from "./Reviews";
 
 interface Props {
     favorites: Product[];
@@ -42,6 +43,7 @@ function ProductInfo({ favorites, setFavorites }: Props) {
         .catch((err) => console.log(err))
         
     }, [product]);
+
 
     if (!product) return <p className="mt-5 text-center">Loading...</p>
 
@@ -174,6 +176,7 @@ function ProductInfo({ favorites, setFavorites }: Props) {
                 </div>
             </div>
             <ReviewForm/>
+            <Reviews />
         </div>
     )
 }

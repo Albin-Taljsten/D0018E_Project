@@ -30,3 +30,12 @@ export interface Order {
     total_price: number;
     items: OrderItem[];
 }
+
+export interface Comments {
+    comment_id: number;
+    name: string;
+    title: string;
+    review: number;
+    comment: string;
+    date: string;
+}
