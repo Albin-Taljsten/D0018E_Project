@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
             return res.status(404).json({message: 'Email does not exist'})
         }       
         const hashedPassword = result[0].password;
-        const token = generateToken({id: result[0].user_id, email: Email });
+        const token = generateToken({id: result[0].user_id, email: Email, role: result[0].role });
         
         if(await bcrypt.compare(Password, hashedPassword)){
             if(result[0].role === 'admin'){
