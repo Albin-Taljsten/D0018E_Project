@@ -1,15 +1,22 @@
 import axios from "axios";
 import { useState } from "react";
-import { HOST } from "../types";
+import { HOST, type Product } from "../types";
 
-function AddProduct(){
+type ProductFormProps = {
+    product?: Product | null
+    onFinish: (updatedProduct?: Product) => void;
+}
+
+function ProductForm({product, onFinish}: ProductFormProps){
+    const updateMode = !!product;
+    
     const [formData, setFormData] = useState({
-        name: "",
-        description: "",
-        price: 0,
-        stock: 0,
-        type: "",
-        image: ""
+        name: product?.name ?? "",
+        description: product?.description ?? "",
+        price: product?.price ?? 0,
+        stock: product?.stock ?? 0,
+        type: product?.type ?? "",
+        image: product?.image ?? ""
     })
     const handleChange = (e:any) => {
         const {name, value} = e.target;
@@ -23,36 +30,40 @@ function AddProduct(){
         const token = localStorage.getItem("token");
         if(!token) return;
         try {
-            const res = await axios.post(`http://${HOST}:5000/products/add`,
-                    formData,
+            if(updateMode){
+                const res = await axios.post(`http://${HOST}:5000/products/update/${product.product_id}`,
+                formData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
                     }
+                )
+                alert(res.data.message);
+            }else{ 
+                const res = await axios.post(`http://${HOST}:5000/products/add`,
+                        formData,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            }
+                        }
                 );
                 alert(res.data.message);
-
-                setFormData({
-                    name: "",
-                    description: "",
-                    price: 0,
-                    stock: 0,
-                    type: "",
-                    image: ""
-                })
-        } catch (err: any) {
+            }
+            onFinish()
+        }catch (err: any) {
             const message = err.response?.data?.message || "Something went wrong";
             alert(message);
         }
     }
-    return (
+    return(
         <div className="col-12 col-md-6 col-lg-6">
             <form onSubmit={handleSubmit} className="card p-4">
-                <div className="d-flex justify-content-between align-item-center mb-3">
-                    <h5 className="mb-3">Add product</h5>            
+                <div className="d-flex justify-content-center align-item-center mb-3 text-decoration-underline">
+                    <h3 className="mb-3">{updateMode ? "Update product": "Add product"}</h3>            
                 </div>
-                <div className="mb-3 mt-3">
+                <div className="mb-3">
                     <label className="form-label">Name:</label>
                     <input type="text" 
                            name="name"
@@ -120,12 +131,11 @@ function AddProduct(){
                                       formData.price === 0 || formData.stock === 0 || 
                                       !formData.type.trim() || 
                                       !formData.image.trim() }>
-                                        Add product
+                                      {updateMode ? "Submit Update" : "Add Product"}
                     </button>
                 </div>
             </form>
         </div>
     )
 }
-
-export default AddProduct
+export default ProductForm
