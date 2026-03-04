@@ -67,10 +67,27 @@ function checkStock(product_id){
         })
     })
 }
+
+function getTypeSpecificProducts(type) {
+    return new Promise((resolve, reject) => {
+        const sql = `SELECT * FROM products WHERE type = ?`
+        db.query(sql, [type], (err, result) => {
+            if (err) {
+                console.error(err);
+                return reject(err);
+            }
+            if (result.length === 0) {
+                return reject(new Error("Products not found"));
+            }
+            resolve(result);
+        })
+    })
+}
 module.exports = {
     addProduct,
     deleteProduct,
     updateProduct,
     getPriceFromProduct,
-    checkStock
+    checkStock,
+    getTypeSpecificProducts
 }

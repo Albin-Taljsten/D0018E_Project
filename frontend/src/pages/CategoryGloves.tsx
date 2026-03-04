@@ -1,36 +1,19 @@
+import { HOST, type Product } from "../components";
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { HOST, type Product } from "../types";
 
-/**
-* TODO: Add a way to pass in a property for what category to search for
-* The property should not be needed only optional
-* @example 
-* interface Props {
-*   category?: string;
-* }
-* 
-* // Then when using and coding:
-* 
-* <GetProducts category={"woman"} />
-* 
-* // or
-* 
-* <GetProducts category={"man"} /> // etc.
-* 
-* function GetProducts({ category }: Props) { ... }
-*/
-
-function GetProducts(){
+function CategoryGloves(){
     const [data, setData] = useState<Product[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const productsPerPage = 50;
+    const productsPerPage = 25;
     const navigate = useNavigate();
 
     useEffect(() => {
+        const type = "Ski Gloves"
         axios
-        .get(`http://${HOST}:5000/products`)
+        .get(`http://${HOST}:5000/products/filter?type=${encodeURIComponent(type)}`)
         .then((res) => setData(res.data))
         .catch((err) => console.log(err))
     }, []);
@@ -88,4 +71,4 @@ function GetProducts(){
     );
 }
 
-export default GetProducts;
+export default CategoryGloves;

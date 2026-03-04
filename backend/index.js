@@ -15,6 +15,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use('/images', express.static('public/images'));
+
 app.use('/review', reviewRoute);
 app.use('/orders', orderRoute);
 app.use('/checkout', checkOutRoute);

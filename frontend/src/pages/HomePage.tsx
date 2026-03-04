@@ -45,7 +45,7 @@ function HomePage({ setFavorites }: Props) {
                     bottom: '-10vh',
                     left: 0,
                     width: '100%',
-                    height: '200px',
+                    height: '250px',
                     background: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)',
                     pointerEvents: 'none',
                 }}

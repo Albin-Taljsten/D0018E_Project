@@ -121,19 +121,15 @@ function ProductInfo({ favorites, setFavorites }: Props) {
                 {/* LEFT: Image */}
                 <div className="col-md-6 mb-4">
                     <div
-                        className="border rounded d-flex align-items-center justify-content-center"
-                        style={{height: "400px", backgroundColor: "#f8f9fa"}}
+                        className="border rounded d-flex justify-content-center"
+                        style={{ width: "100%", backgroundColor: "#f8f9fa" }}
                     >
-                        {/* Placeholder image for now */}
-                        <span className="text-muted">Product Image</span>
-
-                        {/* Later you can just do:
-                        <img
-                        src={product.imageUrl}
-                        alt={product.name}
-                        className="img-fluid rounded"
+                        <img 
+                            src={`http://${HOST}:5000/${product.image}`} 
+                            alt={product.name}
+                            className="img-fluid rounded"
+                            style={{ width: "100%", height: "auto" }}
                         />
-                        */}
                     </div>
                 </div>
 
