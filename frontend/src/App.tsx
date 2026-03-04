@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { Footer, HamburgerMenu, NavBar, ProductInfo, ScrollToTop, OrderInfo, type Product } from './components'
-import { FavoritePage, HomePage, LoginPage, OrderPage } from './pages'
+import { FavoritePage, HomePage, LoginPage, OrderPage, ModerationPage } from './pages'
 import BasketPage from './pages/basketPage'
 import { useState } from 'react'
 import CategoryWoman from './pages/CategoryWoman'
@@ -32,6 +32,8 @@ function App() {
                     <Route path='/women' element={<CategoryWoman />}/>
                     <Route path='/men' element={<CategoryMan />}/>
                     <Route path='/children' element={<CategoryChildren />}/>
+
+                    <Route path='/moderation' element= {<ModerationPage />} />
                 </Routes>
             </main>
             <Footer />

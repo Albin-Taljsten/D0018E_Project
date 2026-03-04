@@ -5,6 +5,7 @@ export interface Product{
     stock: number;
     type: string;
     price: number;
+    image: string;
 }
 
 export interface BasketItem {
@@ -29,4 +30,13 @@ export interface Order {
     status: string;
     total_price: number;
     items: OrderItem[];
+}
+
+export interface Comments {
+    comment_id: number;
+    name: string;
+    title: string;
+    review: number;
+    comment: string;
+    date: string;
 }

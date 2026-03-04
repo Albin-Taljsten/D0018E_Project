@@ -28,6 +28,7 @@ function Login(){
             }
             const res = await axios.post(`http://${HOST}:5000/users/login`, formData);
 
+            localStorage.setItem("role", res.data.role);
             localStorage.setItem("token", res.data.token);
             navigate("/")
             alert(res.data.message)

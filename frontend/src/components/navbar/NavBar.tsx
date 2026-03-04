@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
-import { BasketIcon, FavoriteIcon, LoginIcon } from '../icons'
+import { BasketIcon, FavoriteIcon, LoginIcon, ModerationIcon } from '../icons'
 import { HamburgerButton, SearchBar } from '.'
 import type { Product } from '../types';
+import { useEffect, useState } from 'react';
 import HomeIcon from '../icons/HomeIcon';
 
 interface Props {
@@ -9,6 +10,15 @@ interface Props {
 }
 
 function NavBar({ setFavorites }: Props) {
+    const [isAdmin, setIsAdmin] = useState(false);
+    const role = localStorage.getItem("role");
+    useEffect (() => {
+        if(role === "admin"){
+            setIsAdmin(true);
+        }else{
+            setIsAdmin(false);
+        }
+    })
     return(
         <div>
             <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top" style={{height: '10vh'}}>
@@ -32,15 +42,29 @@ function NavBar({ setFavorites }: Props) {
                     
                         {/* Right side */}
                         <ul className="navbar-nav ms-auto align-items-center">
-                            <li className="nav-item">
-                                <FavoriteIcon></FavoriteIcon>
-                            </li>
-                            <li className="nav-item">
-                                <LoginIcon setFavorites={setFavorites}></LoginIcon>
-                            </li>
-                            <li className="nav-item">
-                                <BasketIcon></BasketIcon>
-                            </li>
+                            {isAdmin ? (
+                                <>
+                                    <li className='nav-item'>
+                                        <ModerationIcon />
+                                    </li>
+                                    <li className="nav-item">
+                                        <LoginIcon setFavorites={setFavorites}></LoginIcon>
+                                    </li>
+
+                                </>
+                            ) : (
+                                <>
+                                    <li className="nav-item">
+                                        <FavoriteIcon></FavoriteIcon>
+                                    </li>
+                                    <li className="nav-item">
+                                        <LoginIcon setFavorites={setFavorites}></LoginIcon>
+                                    </li>
+                                    <li className="nav-item">
+                                        <BasketIcon></BasketIcon>
+                                    </li>
+                                </>
+                            )}
                         </ul>
 
                     {/* </div> */}

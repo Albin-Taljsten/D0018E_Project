@@ -10,6 +10,7 @@ function LoginIcon({ setFavorites }: Props) {
     const [ loggedIn, setLoggedIn] = useState(!!localStorage.getItem("token"));
     const handleLogout = () => {
         localStorage.removeItem("token");
+        localStorage.removeItem("role");
         setFavorites([]);
         setLoggedIn(false);
     }
