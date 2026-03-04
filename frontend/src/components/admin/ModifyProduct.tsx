@@ -58,10 +58,10 @@ function ModifyProduct(){
                                         </div>
                                         <div className="col-md-6 d-flex justify-content-end">
                                             <img
-                                                src={product.image}
+                                                src={`http://${HOST}:5000/${product.image}`}
                                                 alt={product.name}
                                                 className="img-fluid rounded"
-                                                style={{maxHeight: "300px", objectFit: "cover"}}
+                                                style={{maxHeight: "100px", objectFit: "cover"}}
                                             />
                                         </div>
                                     </div>

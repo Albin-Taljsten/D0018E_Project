@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
-const { addProduct, deleteProduct, getTypeSpecificProducts } = require("../services/productsService");
-const { addProduct, deleteProduct, updateProduct } = require("../services/productsService");
+const { addProduct, deleteProduct, getTypeSpecificProducts, updateProduct } = require("../services/productsService");
 const { authenticateAdmin, authenticateToken } = require('../middleware/authenticate');
 
 router.get('/', (req, res) => {

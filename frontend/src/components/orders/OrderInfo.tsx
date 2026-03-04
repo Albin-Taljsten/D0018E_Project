@@ -43,7 +43,7 @@ function OrderInfo(){
                                 <p><small>Order Date: {order.order_date.split("T")[0]}</small></p>
                                 {order.items.map((product) => (
                                     <div key={product.order_item_id} className="row align-items-center mb-3">
-                                        <div className="col-md-6 ">
+                                        <div className="col-md-6">
                                             <h6>{product.name}</h6>
                                             <p className="mb-1"><small className="text-muted">Unit price: ${product.price}</small></p>
                                             <p className="mb-1"><small className="text-muted">Quantity: {product.quantity}</small></p>
@@ -51,10 +51,10 @@ function OrderInfo(){
                                         </div>
                                         <div className="col-md-6 d-flex justify-content-end">
                                             <img
-                                                src={product.image}
+                                                src={`http://${HOST}:5000/${product.image}`}
                                                 alt={product.name}
                                                 className="img-fluid rounded"
-                                                style={{maxHeight: "300px", objectFit: "cover"}}
+                                                style={{maxHeight: "100px", objectFit: "cover"}}
                                             />
                                         </div>
                                     </div>

@@ -66,7 +66,7 @@ function FavoritePage({ favorites, setFavorites }: Props) {
         <div className="container mt-4">
             <h1 className="mb-4">Your favorites</h1>
 
-            <div className="d-flex flex-column gap-3">
+            <div className="d-flex flex-column gap-3 mb-4">
                 {favorites.map(product => (
                     <FavoriteItem 
                         key={product.product_id}
