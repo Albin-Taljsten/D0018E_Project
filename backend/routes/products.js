@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
-const { addProduct } = require("../services/productsService");
+const { addProduct,deleteProduct } = require("../services/productsService");
 const { authenticateAdmin, authenticateToken } = require('../middleware/authenticate');
 
 router.get('/', (req, res) => {
@@ -21,4 +21,15 @@ router.post('/add', authenticateToken, authenticateAdmin, async (req, res) => {
         res.status(500).json({message: "server error"});
     }
 })
+router.delete('/delete/:product_id', authenticateToken, authenticateAdmin, async (req, res) => {
+    const product_id = req.params.product_id;
+    try{
+        await deleteProduct(product_id);
+        res.status(200).json({message: "Product deleted!"})
+    }catch(err){
+        console.error("DELETE ERROR:", err);
+        res.status(500).json({message: "server error"});
+    }
+})
+
 module.exports = router;

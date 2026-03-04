@@ -5,6 +5,7 @@ export interface Product{
     stock: number;
     type: string;
     price: number;
+    image: string;
 }
 
 export interface BasketItem {

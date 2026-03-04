@@ -31,10 +31,6 @@ function NavBar({ setFavorites }: Props) {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/">Home</Link>
                             </li>
-                            {isAdmin &&
-                            <li className='nav-item'>
-                                <ModerationIcon />
-                            </li>}
                         </ul>
 
                         {/* Center */}
@@ -45,15 +41,29 @@ function NavBar({ setFavorites }: Props) {
                     
                         {/* Right side */}
                         <ul className="navbar-nav ms-auto align-items-center">
-                            <li className="nav-item">
-                                <FavoriteIcon></FavoriteIcon>
-                            </li>
-                            <li className="nav-item">
-                                <LoginIcon setFavorites={setFavorites}></LoginIcon>
-                            </li>
-                            <li className="nav-item">
-                                <BasketIcon></BasketIcon>
-                            </li>
+                            {isAdmin ? (
+                                <>
+                                    <li className='nav-item'>
+                                        <ModerationIcon />
+                                    </li>
+                                    <li className="nav-item">
+                                        <LoginIcon setFavorites={setFavorites}></LoginIcon>
+                                    </li>
+
+                                </>
+                            ) : (
+                                <>
+                                    <li className="nav-item">
+                                        <FavoriteIcon></FavoriteIcon>
+                                    </li>
+                                    <li className="nav-item">
+                                        <LoginIcon setFavorites={setFavorites}></LoginIcon>
+                                    </li>
+                                    <li className="nav-item">
+                                        <BasketIcon></BasketIcon>
+                                    </li>
+                                </>
+                            )}
                         </ul>
 
                     {/* </div> */}
