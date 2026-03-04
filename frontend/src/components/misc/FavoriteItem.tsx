@@ -1,4 +1,4 @@
-import type { Product } from "../types";
+import { HOST, type Product } from "../types";
 
 interface Props {
     product: Product;
@@ -11,22 +11,21 @@ function FavoriteItem({ product, onRemove }: Props) {
             <div className="card-body">
                 <div className="d-flex gap-3 align-item-start">
 
-                    {/* Image (placeholder atm) */}
+                    {/* Image (placeholder atm)
                     <div
                         className="bg-light d-flex align-items-center justify-content-center rounded"
                         style={{ width: "100px", height: "100px" }}
                     >
                         <span className="text-muted small">IMG</span>
-                    </div>
+                    </div> */}
 
-                    {/* Replace the image placeholder with this when images have been added to the db
                     <img
-                    src={product.imageUrl}
+                    src={`http://${HOST}:5000/${product.image}`}
                     alt={product.name}
                     className="rounded"
                     style={{ width: "100px", height: "100px", objectFit: "cover" }}
                     />
-                    */}
+                   
 
                     {/* Product info */}
                     <div className="flex-grow-1">

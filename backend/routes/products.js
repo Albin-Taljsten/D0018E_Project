@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const { addProduct, deleteProduct, getTypeSpecificProducts } = require("../services/productsService");
 const { addProduct, deleteProduct, updateProduct } = require("../services/productsService");
 const { authenticateAdmin, authenticateToken } = require('../middleware/authenticate');
 
@@ -9,6 +10,20 @@ router.get('/', (req, res) => {
         if (err) res.json({ message: "server error" });
         return res.json(result)
     })
+});
+
+router.get('/filter', async (req, res) => {
+    const type = req.query.type;
+    if (!type) return res.status(400).json({ message: "Type is required" });
+
+    try {
+        const products = await getTypeSpecificProducts(type);
+        res.status(200).json(products);
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Server error" });
+    }
 });
 
 router.post('/add', authenticateToken, authenticateAdmin, async (req, res) => {

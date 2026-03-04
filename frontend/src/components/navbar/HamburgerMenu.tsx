@@ -28,10 +28,13 @@ function HoverLink({ to, children }: HoverLinkProps) {
 
 function HamburgerMenu() {
     const categories = [
-        { name: "Women", path: "/women" },
-        { name: "Men", path: "/men" },
-        { name: "Children", path: "/children" },
-        { name: "Equipment", path: "/equipment" },
+        { name: "Skis", path: "/skis" },
+        { name: "Snowboards", path: "/snowboards" },
+        { name: "Gloves", path: "/gloves" },
+        { name: "Helmets", path: "/helmets" },
+        { name: "Ski Boots", path: "/ski_boots" },
+        { name: "Snow Boots", path: "/snow_boots" },
+        { name: "All Equipment", path: "/" },
     ];
 
     const accountLinks = [

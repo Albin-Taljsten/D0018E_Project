@@ -98,7 +98,7 @@ function Basket() {
         <div className="container py-5">
             <h1 className="text-center mt-5">Basket Page</h1>
 
-            <div className="row">
+            <div className="row mt-4">
 
                 <div className="col-lg-8">
                     {errorMessage && (
@@ -113,7 +113,7 @@ function Basket() {
                                 <div className="row align-items-center">
                                     <div className="col-md-3">
                                         <img
-                                            src={item.image}
+                                            src={`http://${HOST}:5000/${item.image}`}
                                             alt={item.name}
                                             className="img-fluid rounded"
                                             style={{maxHeight: "200px", objectFit: "cover"}}
