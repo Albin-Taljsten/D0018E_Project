@@ -16,7 +16,7 @@ function addProduct(name, description, price, stock, type, image) {
 
 function deleteProduct(product_id) {
     return new Promise((resolve, reject) => {
-        const sql = 'DELETE FROM products WHERE product_id = ?';
+        const sql = 'UPDATE products SET is_active = 0 WHERE product_id = ?';
         db.query(sql, [product_id], (err, result) => {
             if (err) {
                 console.error(err);

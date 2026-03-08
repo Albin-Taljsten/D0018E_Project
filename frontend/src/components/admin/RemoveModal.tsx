@@ -3,23 +3,23 @@ import { HOST, type Product } from "../types";
 
 type RemoveProps = {
     product: Product | null;
-    showModal: boolean;
+    onFinish: (deletedProduct?: Product) => void;
     onClose: () => void;
 }
 
-function RemoveModal({ product, showModal, onClose}: RemoveProps){
+function RemoveModal({ product, onFinish, onClose}: RemoveProps){
     
-    if(!showModal || !product) return null;
+    if(!product) return null;
 
     const DeleteFromDb = async () => {
         const token = localStorage.getItem("token");
         if(!token) return null;
 
         try{
-            axios.delete(`http://${HOST}:5000/products/delete/${product.product_id}`,
-            {headers: { Authorization: `Bearer ${token}`}
-            })
-            onClose();
+            await axios.delete(`http://${HOST}:5000/products/delete/${product.product_id}`,
+                {headers: { Authorization: `Bearer ${token}`}}
+            );
+            onFinish();
         }catch(err: any){
             const message = err.response?.data?.message || "Someting went wrong";
             console.log(message)
