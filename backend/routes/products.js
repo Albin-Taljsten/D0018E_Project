@@ -5,7 +5,7 @@ const { addProduct, deleteProduct, getTypeSpecificProducts, updateProduct } = re
 const { authenticateAdmin, authenticateToken } = require('../middleware/authenticate');
 
 router.get('/', (req, res) => {
-    db.query('SELECT * FROM products', (err, result) => {
+    db.query('SELECT * FROM products WHERE is_active = 1', (err, result) => {
         if (err) res.json({ message: "server error" });
         return res.json(result)
     })
