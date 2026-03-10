@@ -141,6 +141,7 @@ function Basket() {
                                                         inputMode="numeric"
                                                         pattern="[0-9]"
                                                         className="form-control text-center"
+                                                        readOnly
                                                         value={item.quantity} 
                                                         onChange={(e) => {
                                                             const value = e.target.value;

@@ -6,7 +6,7 @@ const { authenticateAdmin, authenticateToken } = require('../middleware/authenti
 
 router.get('/', (req, res) => {
     db.query('SELECT * FROM products WHERE is_active = 1', (err, result) => {
-        if (err) res.json({ message: "server error" });
+        if (err) return res.json({ message: "server error" });
         return res.json(result)
     })
 });

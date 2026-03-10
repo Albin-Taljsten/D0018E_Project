@@ -22,7 +22,7 @@ function ProductForm({product, onFinish}: ProductFormProps){
         const {name, value} = e.target;
         setFormData(prev => ({
            ...prev,
-           [name]: value 
+           [name]: (name === "price" || name === "stock") ? Math.max(0, Number(value)) : value
         }))
     }
     const handleSubmit = async (e: any) => {
@@ -87,6 +87,7 @@ function ProductForm({product, onFinish}: ProductFormProps){
                     <label className="form-label">Price:</label>
                     <input type="number" 
                            name="price"
+                           min={0}
                            className="form-control" 
                            placeholder="Enter price" 
                            value={formData.price}
@@ -97,6 +98,7 @@ function ProductForm({product, onFinish}: ProductFormProps){
                     <label className="form-label">Stock:</label>
                     <input type="number" 
                            name="stock"
+                           min={0}
                            className="form-control" 
                            placeholder="Enter how many in stock" 
                            value={formData.stock}
